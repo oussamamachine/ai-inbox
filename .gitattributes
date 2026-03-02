@@ -1,0 +1,19 @@
+# Tell Git to store large binary assets in Git LFS instead of the main repo.
+# Run `git lfs install` once on your machine before cloning/pushing if you
+# plan to work with the demo video.
+#
+# Install Git LFS: https://git-lfs.com/
+
+*.mp4   filter=lfs diff=lfs merge=lfs -text
+*.mov   filter=lfs diff=lfs merge=lfs -text
+*.gif   filter=lfs diff=lfs merge=lfs -text
+
+# Ensure consistent line endings on all platforms
+*.js    text eol=lf
+*.jsx   text eol=lf
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.sh    text eol=lf
+*.env*  text eol=lf

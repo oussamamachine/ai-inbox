@@ -1,0 +1,39 @@
+{
+  "name": "ai-smart-inbox",
+  "version": "1.0.0",
+  "description": "AI Smart Inbox - Unified inbox with FREE AI-powered summaries for Gmail, Slack, WhatsApp, and more",
+  "private": true,
+  "scripts": {
+    "setup": "npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "start:backend": "cd backend && npm start",
+    "seed": "cd backend && node seed-pro.js",
+    "test": "echo 'Tests coming soon! For now, run: node backend/seed-pro.js'"
+  },
+  "keywords": [
+    "ai",
+    "inbox",
+    "unified-inbox",
+    "groq",
+    "openai",
+    "saas",
+    "n8n",
+    "automation",
+    "gmail",
+    "slack",
+    "whatsapp"
+  ],
+  "author": "AI Smart Inbox Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/ai-inbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/ai-inbox/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/ai-inbox#readme"
+}
