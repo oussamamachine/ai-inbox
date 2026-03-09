@@ -1,4 +1,4 @@
-# AI Smart Inbox
+﻿# AI Smart Inbox
 
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
@@ -7,16 +7,18 @@
 [![GitHub Stars](https://img.shields.io/github/stars/oussamamachine/ai-inbox?style=flat)](https://github.com/oussamamachine/ai-inbox/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/oussamamachine/ai-inbox)](https://github.com/oussamamachine/ai-inbox/issues)
 
-A self-hosted, AI-powered inbox that aggregates messages from Gmail, Slack, WhatsApp, Instagram, LinkedIn, SMS, Twitter/X, and Telegram into a single interface. Each message is automatically summarised and paired with a context-aware reply suggestion.
+A self-hosted, AI-powered inbox that unifies Gmail, Slack, WhatsApp, Instagram, LinkedIn, SMS, Twitter/X, and Telegram into one interface. Every incoming message gets an AI-generated summary and a ready-to-send reply suggestion  so you can triage your entire inbox in minutes.
+
+Built by [Oussama Machine](https://github.com/oussamamachine).
 
 ---
 
 ## Demo
 
-<video src="record/ai-inbox.mp4" controls width="100%"></video>
+ **[Watch the demo video](https://github.com/oussamamachine/ai-inbox/blob/main/record/ai-inbox.mp4)**
 
-> **Note:** If the video does not play inline, [download it here](record/ai-inbox.mp4).  
-> The video is tracked with **Git LFS**. Run `git lfs install` before cloning if you need the file locally (see [git-lfs.com](https://git-lfs.com/)).
+> GitHub streams the video directly in your browser  no download needed.
+> The file is stored with **Git LFS**. Run ``git lfs install`` once before cloning if you need it locally ([git-lfs.com](https://git-lfs.com/)).
 
 ---
 
@@ -32,6 +34,7 @@ A self-hosted, AI-powered inbox that aggregates messages from Gmail, Slack, What
 - [Deployment](#deployment)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Author](#author)
 - [License](#license)
 
 ---
@@ -56,33 +59,33 @@ A self-hosted, AI-powered inbox that aggregates messages from Gmail, Slack, What
 ## Architecture
 
 ```
-                        ┌──────────────┐
-  External platforms    │     n8n      │  Workflow automation
-  (Gmail, Slack, …) ──▶│   Webhooks   │  (self-hosted, optional)
-                        └──────┬───────┘
-                               │ POST /api/messages
-                               ▼
-                    ┌──────────────────────┐
-                    │   Express REST API   │  Node.js 18+, ESM
-                    │   (backend/)         │
-                    │                      │
-                    │  ┌────────────────┐  │
-                    │  │  AI Provider   │  │  Groq (free) or OpenAI
-                    │  │  (async)       │  │
-                    │  └────────────────┘  │
-                    │  ┌────────────────┐  │
-                    │  │   MongoDB      │  │  Mongoose 8
-                    │  └────────────────┘  │
-                    └──────────┬───────────┘
-                               │ REST/JSON
-                               ▼
-                    ┌──────────────────────┐
-                    │   React SPA          │  Vite 5, React 18
-                    │   (frontend/)        │  Tailwind CSS
-                    └──────────────────────┘
+                        
+  External platforms         n8n        Workflow automation
+  (Gmail, Slack, )    Webhooks     (self-hosted, optional)
+                        
+                                POST /api/messages
+                               
+                    
+                       Express REST API     Node.js 18+, ESM
+                       (backend/)         
+                                          
+                        
+                        AI Provider       Groq (free) or OpenAI
+                        (async)         
+                        
+                        
+                         MongoDB          Mongoose 8
+                        
+                    
+                                REST/JSON
+                               
+                    
+                       React SPA            Vite 5, React 18
+                       (frontend/)          Tailwind CSS
+                    
 ```
 
-Message flow: an external event (e.g. new Gmail) triggers an n8n workflow, which POSTs the message to `POST /api/messages`. The API stores the message in MongoDB and fires an async AI generation call. The React frontend polls for new messages and renders them with inline reply controls.
+Message flow: an external event (e.g. a new Gmail) triggers an n8n workflow, which POSTs the message to `POST /api/messages`. The API stores it in MongoDB and fires an async AI generation call. The React frontend polls for new messages and renders them with inline reply controls.
 
 ---
 
@@ -91,14 +94,14 @@ Message flow: an external event (e.g. new Gmail) triggers an n8n workflow, which
 **Backend**
 
 - [Node.js 18](https://nodejs.org/) with native ES modules (`"type": "module"`)
-- [Express 4](https://expressjs.com/) — REST API
-- [Mongoose 8](https://mongoosejs.com/) — MongoDB ODM
-- [Groq SDK / OpenAI](https://console.groq.com/) — AI inference (pluggable)
-- [Helmet](https://helmetjs.github.io/) — HTTP security headers
-- [express-rate-limit](https://github.com/express-rate-limit/express-rate-limit) — rate limiting
-- [Morgan](https://github.com/expressjs/morgan) — HTTP request logging
-- [Twilio](https://www.twilio.com/) — SMS/WhatsApp outbound replies
-- [@slack/web-api](https://slack.dev/node-slack-sdk/) — Slack outbound replies
+- [Express 4](https://expressjs.com/)  REST API
+- [Mongoose 8](https://mongoosejs.com/)  MongoDB ODM
+- [Groq / OpenAI](https://console.groq.com/)  AI inference (pluggable)
+- [Helmet](https://helmetjs.github.io/)  HTTP security headers
+- [express-rate-limit](https://github.com/express-rate-limit/express-rate-limit)  per-IP rate limiting
+- [Morgan](https://github.com/expressjs/morgan)  HTTP request logging
+- [Twilio](https://www.twilio.com/)  SMS/WhatsApp outbound replies
+- [@slack/web-api](https://slack.dev/node-slack-sdk/)  Slack outbound replies
 
 **Frontend**
 
@@ -109,7 +112,7 @@ Message flow: an external event (e.g. new Gmail) triggers an n8n workflow, which
 
 **Automation**
 
-- [n8n](https://n8n.io/) — self-hosted workflow automation (optional)
+- [n8n](https://n8n.io/)  self-hosted workflow automation (optional)
 
 ---
 
@@ -117,12 +120,12 @@ Message flow: an external event (e.g. new Gmail) triggers an n8n workflow, which
 
 ### Prerequisites
 
-| Requirement  | Version | Notes                                                                |
-| ------------ | ------- | -------------------------------------------------------------------- |
-| Node.js      | ≥ 18    | Required for both frontend and backend                               |
-| MongoDB      | any     | Local instance or [MongoDB Atlas](https://www.mongodb.com/atlas)     |
-| Groq API key | —       | Free — [console.groq.com](https://console.groq.com/), no card needed |
-| n8n          | any     | Optional; only needed for live platform ingestion                    |
+| Requirement    | Version | Notes                                                              |
+| -------------- | ------- | ------------------------------------------------------------------ |
+| Node.js        | >= 18   | Required for both frontend and backend                             |
+| MongoDB        | any     | Local instance or [MongoDB Atlas](https://www.mongodb.com/atlas)   |
+| Groq API key   |        | Free  [console.groq.com](https://console.groq.com/), no card needed |
+| n8n            | any     | Optional; only needed for live platform ingestion                  |
 
 ### 1. Clone the repository
 
@@ -135,14 +138,14 @@ cd ai-inbox
 
 ```bash
 cd backend
-cp ../.env.example .env   # or copy backend/.env.example to backend/.env
+cp ../.env.example .env
 ```
 
 Edit `backend/.env` and fill in at minimum:
 
-- `MONGODB_URI` — connection string for your MongoDB instance
-- `JWT_SECRET` — a long random string (run `openssl rand -hex 32` to generate one)
-- `GROQ_API_KEY` — your free Groq key
+- `MONGODB_URI`  connection string for your MongoDB instance
+- `JWT_SECRET`  a long, random string (`openssl rand -hex 32` generates a good one)
+- `GROQ_API_KEY`  your free Groq key
 
 ```bash
 npm install
@@ -157,14 +160,14 @@ npm install
 npm run dev       # starts Vite on http://localhost:5173
 ```
 
-The frontend auto-connects to `http://localhost:4001/api`. Override this by setting `VITE_API_URL` in `frontend/.env`.
+The frontend connects to `http://localhost:4001/api` by default. Override this by setting `VITE_API_URL` in `frontend/.env`.
 
 ### 4. Import n8n workflows (optional)
 
-1. Start n8n: `npx n8n` (or use Docker — see [n8n docs](https://docs.n8n.io/))
+1. Start n8n: `npx n8n` (or use Docker  see [n8n docs](https://docs.n8n.io/))
 2. In the n8n UI, import any workflow from `n8n-flows/`
 3. Configure your platform credentials in n8n
-4. Point the webhook action URL to `http://localhost:4001/api/messages`
+4. Set the webhook URL to `http://localhost:4001/api/messages`
 
 ### Seed demo data
 
@@ -173,7 +176,7 @@ cd backend
 node seed-demo-all-platforms.js
 ```
 
-This script inserts realistic sample messages across all platforms so you can explore the UI without live integrations.
+This inserts realistic sample messages across all platforms so you can explore the UI without setting up live integrations.
 
 ---
 
@@ -181,24 +184,24 @@ This script inserts realistic sample messages across all platforms so you can ex
 
 All configuration lives in `backend/.env`. See [`.env.example`](.env.example) for the full annotated reference.
 
-| Variable                   | Required     | Description                                            |
-| -------------------------- | ------------ | ------------------------------------------------------ |
-| `MONGODB_URI`              | Yes          | MongoDB connection string                              |
-| `JWT_SECRET`               | Yes          | Secret used to sign JWTs — keep this private           |
-| `JWT_EXPIRES_IN`           | No           | Token lifetime; defaults to `7d`                       |
-| `PORT`                     | No           | API port; defaults to `4001`                           |
-| `NODE_ENV`                 | No           | `development` or `production`                          |
-| `GROQ_API_KEY`             | Recommended  | Free Groq API key for AI features                      |
-| `AI_MODEL`                 | No           | Groq model name; defaults to `llama-3.3-70b-versatile` |
-| `OPENAI_API_KEY`           | Alt. to Groq | OpenAI key if you prefer the OpenAI provider           |
-| `CORS_ORIGINS`             | No           | Comma-separated list of allowed frontend origins       |
-| `TWILIO_ACCOUNT_SID`       | No           | Required for SMS/WhatsApp replies                      |
-| `TWILIO_AUTH_TOKEN`        | No           | Required for SMS/WhatsApp replies                      |
-| `TWILIO_PHONE_NUMBER`      | No           | Sender number for SMS                                  |
-| `WHATSAPP_ACCESS_TOKEN`    | No           | Meta Cloud API token                                   |
-| `WHATSAPP_PHONE_NUMBER_ID` | No           | Meta phone number ID                                   |
-| `SLACK_BOT_TOKEN`          | No           | Bot token for Slack replies (`xoxb-…`)                 |
-| `N8N_WEBHOOK_URL`          | No           | Base URL of your n8n instance                          |
+| Variable                   | Required     | Description                                       |
+| -------------------------- | ------------ | ------------------------------------------------- |
+| `MONGODB_URI`              | Yes          | MongoDB connection string                         |
+| `JWT_SECRET`               | Yes          | Secret used to sign JWTs  keep this private      |
+| `JWT_EXPIRES_IN`           | No           | Token lifetime; defaults to `7d`                  |
+| `PORT`                     | No           | API port; defaults to `4001`                      |
+| `NODE_ENV`                 | No           | `development` or `production`                     |
+| `GROQ_API_KEY`             | Recommended  | Free Groq API key for AI features                 |
+| `AI_MODEL`                 | No           | Groq model; defaults to `llama-3.3-70b-versatile` |
+| `OPENAI_API_KEY`           | Alt. to Groq | OpenAI key if you prefer the OpenAI provider      |
+| `CORS_ORIGINS`             | No           | Comma-separated list of allowed frontend origins  |
+| `TWILIO_ACCOUNT_SID`       | No           | Required for SMS/WhatsApp replies                 |
+| `TWILIO_AUTH_TOKEN`        | No           | Required for SMS/WhatsApp replies                 |
+| `TWILIO_PHONE_NUMBER`      | No           | Sender number for SMS                             |
+| `WHATSAPP_ACCESS_TOKEN`    | No           | Meta Cloud API token                              |
+| `WHATSAPP_PHONE_NUMBER_ID` | No           | Meta phone number ID                              |
+| `SLACK_BOT_TOKEN`          | No           | Bot token for Slack replies (`xoxb-`)            |
+| `N8N_WEBHOOK_URL`          | No           | Base URL of your n8n instance                     |
 
 ---
 
@@ -215,25 +218,25 @@ All endpoints are prefixed with `/api`. Protected routes require an `Authorizati
 
 ### Messages
 
-| Method | Endpoint                   | Auth     | Description                                                |
-| ------ | -------------------------- | -------- | ---------------------------------------------------------- |
-| GET    | `/messages`                | Required | List messages; supports `?source=`, `?status=`, `?search=` |
-| GET    | `/messages/:id`            | Required | Fetch a single message                                     |
-| POST   | `/messages`                | Public   | Ingest a new message (called by n8n or webhooks)           |
-| PATCH  | `/messages/:id/status`     | Required | Update message status                                      |
-| POST   | `/messages/:id/regenerate` | Required | Re-generate AI summary and reply                           |
+| Method | Endpoint                   | Auth     | Description                                        |
+| ------ | -------------------------- | -------- | -------------------------------------------------- |
+| GET    | `/messages`                | Required | List messages (`?source=`, `?status=`, `?search=`) |
+| GET    | `/messages/:id`            | Required | Fetch a single message                             |
+| POST   | `/messages`                | Public   | Ingest a new message (called by n8n)               |
+| PATCH  | `/messages/:id/status`     | Required | Update message status                              |
+| POST   | `/messages/:id/regenerate` | Required | Re-generate AI summary and reply                   |
 
 ### Replies
 
-| Method | Endpoint       | Auth     | Description                                          |
-| ------ | -------------- | -------- | ---------------------------------------------------- |
-| POST   | `/replies/:id` | Required | Send the approved reply via the originating platform |
+| Method | Endpoint       | Auth     | Description                                 |
+| ------ | -------------- | -------- | ------------------------------------------- |
+| POST   | `/replies/:id` | Required | Send the reply via the originating platform |
 
 ### Health
 
-| Method | Endpoint  | Auth   | Description                                         |
-| ------ | --------- | ------ | --------------------------------------------------- |
-| GET    | `/health` | Public | Returns `{ status: "ok" }` — used by load balancers |
+| Method | Endpoint  | Auth   | Description              |
+| ------ | --------- | ------ | ------------------------ |
+| GET    | `/health` | Public | Returns `{ status: "ok" }` |
 
 ---
 
@@ -241,65 +244,69 @@ All endpoints are prefixed with `/api`. Protected routes require an `Authorizati
 
 ```
 ai-inbox/
-├── .env.example              # Annotated environment variable reference
-├── .gitignore
-├── package.json              # Root-level convenience scripts
-├── LICENSE
-├── README.md
-│
-├── backend/
-│   ├── server.js             # Express app entry point
-│   ├── package.json
-│   ├── config/
-│   │   └── validateEnv.js    # Startup env validation with early warnings
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── messageController.js
-│   │   └── replyController.js
-│   ├── middleware/
-│   │   ├── auth.js           # JWT verification middleware
-│   │   └── rateLimiter.js    # General + auth-specific rate limits
-│   ├── models/
-│   │   ├── Message.js
-│   │   └── User.js
-│   ├── routes/
-│   │   ├── auth.js
-│   │   ├── messages.js
-│   │   └── replies.js
-│   ├── tests/
-│   │   └── validateEnv.test.js
-│   └── utils/
-│       └── aiService.js      # Groq / OpenAI abstraction
-│
-├── frontend/
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── package.json
-│   └── src/
-│       ├── App.jsx
-│       ├── main.jsx
-│       ├── components/
-│       │   ├── FilterBar.jsx
-│       │   ├── MessageCard.jsx
-│       │   ├── PlatformIcon.jsx
-│       │   ├── ReplyEditor.jsx
-│       │   ├── SearchBar.jsx
-│       │   └── StatsBar.jsx
-│       ├── context/
-│       │   └── AuthContext.jsx
-│       ├── hooks/
-│       │   └── useMessages.js
-│       ├── pages/
-│       │   ├── Dashboard.jsx
-│       │   ├── Login.jsx
-│       │   └── Register.jsx
-│       ├── services/
-│       │   └── api.js        # Axios instance with JWT interceptor
-│       └── utils/
-│           └── formatters.js # Date and badge colour helpers
-│
-└── n8n-flows/
-    └── DEMO-ALL-PLATFORMS.json
+ .env.example              # Annotated environment variable reference
+ .gitignore
+ .gitattributes            # Git LFS config for video assets
+ package.json
+ LICENSE
+ README.md
+
+ backend/
+    server.js             # Express app entry point
+    package.json
+    config/
+       validateEnv.js    # Startup env validation with early warnings
+    controllers/
+       authController.js
+       messageController.js
+       replyController.js
+    middleware/
+       auth.js           # JWT verification middleware
+       rateLimiter.js    # General + auth-specific rate limits
+    models/
+       Message.js
+       User.js
+    routes/
+       auth.js
+       messages.js
+       replies.js
+    tests/
+       validateEnv.test.js
+    utils/
+        aiService.js      # Groq / OpenAI abstraction
+
+ frontend/
+    index.html
+    vite.config.js
+    package.json
+    src/
+        App.jsx
+        main.jsx
+        components/
+           FilterBar.jsx
+           MessageCard.jsx
+           PlatformIcon.jsx
+           ReplyEditor.jsx
+           SearchBar.jsx
+           StatsBar.jsx
+        context/
+           AuthContext.jsx
+        hooks/
+           useMessages.js
+        pages/
+           Dashboard.jsx
+           Login.jsx
+           Register.jsx
+        services/
+           api.js        # Axios instance with JWT interceptor
+        utils/
+            formatters.js # Date and badge colour helpers
+
+ n8n-flows/
+    DEMO-ALL-PLATFORMS.json
+
+ record/
+     ai-inbox.mp4          # Demo video (tracked with Git LFS)
 ```
 
 ---
@@ -308,30 +315,29 @@ ai-inbox/
 
 ### Backend
 
-The backend is a standard Node.js process. Any platform that runs Node 18+ works.
+The backend is a standard Node.js process  deploy it anywhere that runs Node 18+.
 
-**Environment checklist before deploying:**
+**Pre-deployment checklist:**
 
 - Set `NODE_ENV=production`
-- Set a strong, unique `JWT_SECRET` (at least 32 random characters)
+- Use a strong, unique `JWT_SECRET` (at least 32 random characters)
 - Use a MongoDB Atlas connection string or a secured self-hosted instance
 - Set `CORS_ORIGINS` to your frontend domain
 
 **Recommended platforms:** Railway, Render, Fly.io, or a VPS with PM2.
 
 ```bash
-# Production start (no file-watch overhead)
-npm start
+npm start   # production start  no file-watch overhead
 ```
 
 ### Frontend
 
-The frontend compiles to a static bundle.
+The frontend compiles to a static bundle:
 
 ```bash
 cd frontend
 VITE_API_URL=https://api.yourdomain.com/api npm run build
-# Serve the dist/ folder with Nginx, Vercel, Netlify, or Cloudflare Pages
+# Deploy the dist/ folder to Vercel, Netlify, Cloudflare Pages, or Nginx
 ```
 
 ---
@@ -340,7 +346,7 @@ VITE_API_URL=https://api.yourdomain.com/api npm run build
 
 - [ ] Email OAuth integration (Gmail, Outlook)
 - [ ] Real-time updates via WebSocket / Server-Sent Events
-- [ ] Per-user platform credential management through the UI
+- [ ] Per-user platform credential management in the UI
 - [ ] Reply templates and tone selector
 - [ ] Webhook signature verification for inbound messages
 - [ ] Docker Compose setup for one-command local bootstrap
@@ -349,22 +355,46 @@ VITE_API_URL=https://api.yourdomain.com/api npm run build
 
 ## Contributing
 
-Contributions are welcome. Please open an issue before submitting a large pull request so we can align on approach.
+Contributions are welcome. If you are planning something large, open an issue first so we can align on the approach before you invest the time.
 
 ```bash
-# Fork the repository, then:
-git checkout -b feature/your-feature-name
-# Make your changes
-npm test          # from backend/ — run the test suite
-git commit -m "feat: describe your change"
-git push origin feature/your-feature-name
-# Open a pull request
+# 1. Fork the repo on GitHub, then clone your fork
+git clone https://github.com/<your-username>/ai-inbox.git
+cd ai-inbox
+
+# 2. Create a descriptive branch
+git checkout -b feature/add-ai-message-summary
+
+# 3. Make your changes, then run the tests
+cd backend && npm test
+
+# 4. Commit with a clear message
+git commit -m "feat: add AI message summary for Telegram"
+
+# 5. Push and open a pull request
+git push origin feature/add-ai-message-summary
 ```
 
-Please follow the existing code style. The backend uses ESM (`import`/`export`), named functions, and JSDoc comments on non-trivial logic. The frontend uses functional React components and custom hooks.
+A few conventions to keep in mind:
+
+- The backend uses native ES modules (`import`/`export`)  no `require()`
+- Prefer named functions over anonymous arrows for readability
+- Frontend components are functional; extract logic into custom hooks
+- Leave a comment for anything non-obvious
+
+---
+
+## Author
+
+Built and maintained by **Oussama Machine**
+
+- GitHub: [@oussamamachine](https://github.com/oussamamachine)
+- Project: [github.com/oussamamachine/ai-inbox](https://github.com/oussamamachine/ai-inbox)
+
+If this saved you time, a  on GitHub is always appreciated.
 
 ---
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, and distribute.
+[MIT](LICENSE)  free to use, modify, and distribute.
